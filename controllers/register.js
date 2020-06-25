@@ -48,11 +48,7 @@ const handleRegister = (req, res, db, bcrypt, jwt, nodemailer) => {
 			auth: {
 				type: 'OAuth2',
 				user: 'tommaso.vsr@gmail.com',
-				clientId: '15423583939-evj72sjcq2j2quaqit7m704anb824k29.apps.googleusercontent.com',
-				clientSecret: 'cbswbMrylCjjTahc4NQvV6hc',
-				refreshToken: '1//09ICCwj6umeI3CgYIARAAGAkSNwF-L9IrjbImq1kwh6Rhd0QHWH7OaWslUQIM1kPnZsnHKmF0U9CElppBs1C7xX6D0xmWm3oPv3A',
 				accessToken: 'ya29.a0AfH6SMCdDqOrfz2H0L0S4N8aUgYno5lPZzD2RwUtM5eEiIc-PiTIbU0nLn_JnIvN-UmarGuAhJdXqcWQxC_YsUmSc_bwRxnUJY__FmmHIeoAOa_6M_8fEyIBIGZQtGsvYtcShgkwo2DF-wt1G8hfx3gsZk_Mg6qhSHQ',
-				expires: 1593117000213
 			}
 		});
 		transporter.sendMail({
