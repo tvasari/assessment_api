@@ -67,5 +67,5 @@ app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcry
 app.get('/profile/:id', (req, res) => { profile.handleProfile(req, res, db) }) //cancella?
 
 app.listen(process.env.PORT || 3001, () => {
-	console.log(`app is running on port ${PORT}`)
+	console.log(`app is running on port ${process.env.PORT}`)
 })
