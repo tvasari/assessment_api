@@ -11,16 +11,18 @@ const register = require('./controllers/register.js');
 const signin = require('./controllers/signin.js');
 const profile = require('./controllers/profile.js');
 
-
+const connectionString = "postgres://znctuwpywoglui:c18bed8c5b36708de581b09405eecb12639dcc7faacf74ad52bc34f62431f0e6@ec2-3-216-129-140.compute-1.amazonaws.com:5432/d5kha1hcn86up8"
 const db = knex({
   client: 'pg',
   connection: {
-    host : '127.0.0.1',
-    user : 'postgres',
-    password : 'test',
-    database : 'assessmentdb'
+    connectionString: connectionString,
+    ssl: {
+      rejectUnauthorized: false
+    }
   }
 });
+
+console.log(db('content').select('*'))
 
 const signinLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
