@@ -40,15 +40,14 @@ const handleRegister = (req, res, db, bcrypt, jwt, nodemailer) => {
 		const url = `https://morning-castle-assessment-api.herokuapp.com/${emailToken}`;
 	
 		const transporter = nodemailer.createTransport({
-			pool: true,
 			host: 'smtp.gmail.com',
 			port: 465,
 			secure: true,
 			service: 'Gmail',
 			auth: {
-				type: 'OAuth2',
-				user: 'tommaso.vsr@gmail.com',
-				accessToken: 'ya29.a0AfH6SMCdDqOrfz2H0L0S4N8aUgYno5lPZzD2RwUtM5eEiIc-PiTIbU0nLn_JnIvN-UmarGuAhJdXqcWQxC_YsUmSc_bwRxnUJY__FmmHIeoAOa_6M_8fEyIBIGZQtGsvYtcShgkwo2DF-wt1G8hfx3gsZk_Mg6qhSHQ',
+				user: 'osammotvasariirasav@gmail.com',
+				password: 'morningcastle000'
+				
 			}
 		});
 		transporter.sendMail({
