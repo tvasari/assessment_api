@@ -40,6 +40,7 @@ const handleRegister = (req, res, db, bcrypt, jwt, nodemailer) => {
 		const url = `https://morning-castle-assessment-api.herokuapp.com/${emailToken}`;
 	
 		const transporter = nodemailer.createTransport({
+			pool: true,
 			host: 'smtp.gmail.com',
 			port: 465,
 			secure: true,
@@ -47,7 +48,6 @@ const handleRegister = (req, res, db, bcrypt, jwt, nodemailer) => {
 			auth: {
 				user: 'osammotvasariirasav@gmail.com',
 				password: 'morningcastle000'
-				
 			}
 		});
 		transporter.sendMail({
