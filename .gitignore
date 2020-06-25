@@ -19,6 +19,9 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+credentials.json
+index.js
+token.json
 
 npm-debug.log*
 yarn-debug.log*

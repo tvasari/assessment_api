@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const helmet = require('helmet');
 const nodemailer = require('nodemailer');
 const rateLimit = require("express-rate-limit");
+const dotenv = require('dotenv').config();
 
 const register = require('./controllers/register.js');
 const signin = require('./controllers/signin.js');
@@ -44,7 +45,7 @@ app.get('/confirmation/:token', (req, res) => {
     } else {
       db('login').where('email', '=', verifiedJwt.user).update({confirmed: true}).then(user => res.send(user));
     }
-    return res.redirect('http://localhost:3000/signin');
+    return res.redirect('https://morning-castle-assessment.herokuapp.com/signin');
   }); 
 })
 app.get('/content', (req, res) => {
