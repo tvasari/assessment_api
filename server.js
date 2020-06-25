@@ -22,6 +22,11 @@ const db = knex({
   }
 });
 
+var corsOptions = {
+  origin: 'https://morning-castle-assessment.herokuapp.com',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
 console.log(db('content').select('*'))
 
 const signinLimiter = rateLimit({
@@ -34,7 +39,7 @@ const app = express();
 
 app.use(helmet());
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use("/signin", signinLimiter);
 
 app.get('/', (req, res) => {res.json('It is working!');})
