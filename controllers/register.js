@@ -1,4 +1,4 @@
-const handleRegister = (req, res, db, bcrypt, jwt, nodemailer) => {
+const handleRegister = (req, res, db, bcrypt, jwt, sgMail) => {
 
 	const { email, name, password } = req.body;
 	if (!email || !name || !password) {
@@ -30,34 +30,25 @@ const handleRegister = (req, res, db, bcrypt, jwt, nodemailer) => {
 	})
 	.catch(err => res.status(400).json('unable to register'));
 
-	try {
-		const emailToken = jwt.sign({
-			user: email
-		}, 'secret4algorithm', {
-			expiresIn: '1d'
-		});
-	
-		const url = `https://morning-castle-assessment-api.herokuapp.com/${emailToken}`;
-	
-		const transporter = nodemailer.createTransport({
-			pool: true,
-			host: 'smtp.gmail.com',
-			port: 465,
-			secure: true,
-			service: 'Gmail',
-			auth: {
-				user: 'osammotvasariirasav@gmail.com',
-				password: 'morningcastle000'
-			}
-		});
-		transporter.sendMail({
-			to: email,
-			subject: 'Email di conferma',
-			html: `Clicca sul link per confermare l'indirizzo email del tuo profilo: <a href="${url}">${url}</a>`
-		});
-	} catch (e) {
-		console.log(e);
-	}
+	const emailToken = jwt.sign({
+		user: email
+	}, 'secret4algorithm', {
+		expiresIn: '1d'
+	});
+
+	const url = `https://morning-castle-assessment-api.herokuapp.com/${emailToken}`;
+
+	const mailOptions = {
+		from: 'tommaso.vsr@gmail.com',
+		to: email,
+		subject: 'Email di conferma',
+		html: `Clicca sul link per confermare l'indirizzo email del tuo profilo: <a href="${url}">${url}</a>`
+	};
+
+	const sendgridAPIKey = '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';
+
+	sgMail.setApiKey(sendgridAPIKey);
+	sgMail.send(mailOptions)
 }
 
 module.exports = {

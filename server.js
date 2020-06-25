@@ -4,9 +4,9 @@ const cors = require('cors');
 const knex = require('knex');
 const jwt = require('jsonwebtoken');
 const helmet = require('helmet');
-const nodemailer = require('nodemailer');
 const rateLimit = require("express-rate-limit");
 const dotenv = require('dotenv').config();
+const sgMail = require('@sendgrid/mail');
 
 const register = require('./controllers/register.js');
 const signin = require('./controllers/signin.js');
@@ -21,13 +21,6 @@ const db = knex({
   }
 });
 
-var corsOptions = {
-  origin: 'https://morning-castle-assessment.herokuapp.com',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-
-console.log(db('content').select('*'))
-
 const signinLimiter = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 5,
@@ -38,10 +31,10 @@ const app = express();
 
 app.use(helmet());
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors());
 app.use("/signin", signinLimiter);
 
-app.get('/', (req, res) => {res.json('It is working!');})
+app.get('/', (req, res) => {res.json('It is working!')})
 app.get('/confirmation/:token', (req, res) => {
   jwt.verify(req.params.token, 'secret4algorithm', (err, verifiedJwt) => {
     if (err) {
@@ -69,7 +62,7 @@ app.post('/postcontent', (req, res) => {
   })
 })
 app.post('/signin', (req, res) => { signin.handleSignIn(req, res, db, bcrypt) })
-app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, jwt, nodemailer) }) //dependency injection
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, jwt, sgMail) }) //dependency injection
 app.get('/profile/:id', (req, res) => { profile.handleProfile(req, res, db) }) //cancella?
 
 app.listen(process.env.PORT || 3001, () => {
