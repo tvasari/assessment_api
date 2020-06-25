@@ -36,7 +36,7 @@ const handleRegister = (req, res, db, bcrypt, jwt, sgMail) => {
 		expiresIn: '1d'
 	});
 
-	const url = `https://morning-castle-assessment-api.herokuapp.com/${emailToken}`;
+	const url = `https://morning-castle-assessment-api.herokuapp.com/confirmation/${emailToken}`;
 
 	const mailOptions = {
 		from: 'tommaso.vsr@gmail.com',
