@@ -1,4 +1,4 @@
-const handleRegister = (req, res, db, bcrypt, jwt, sgMail) => {
+const handleRegister = (req, res, db, bcrypt, jwt, nodemailer) => {
 
 	const { email, name, password } = req.body;
 	if (!email || !name || !password) {
@@ -39,16 +39,31 @@ const handleRegister = (req, res, db, bcrypt, jwt, sgMail) => {
 	const url = `https://morning-castle-assessment-api.herokuapp.com/confirmation/${emailToken}`;
 
 	const mailOptions = {
-		from: 'tommaso.vsr@gmail.com',
+		from: 'Tommaso <osammotvasariirasav@gmail.com>',
 		to: email,
 		subject: 'Email di conferma',
 		html: `Clicca sul link per confermare l'indirizzo email del tuo profilo: <a href="${url}">${url}</a>`
 	};
 
-	const sendgridAPIKey = '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';
+	const transporter = nodemailer.createTransport({
+		pool: true,
+    	host: 'smtp.gmail.com',
+    	port: 465,
+    	secure: true,
+		auth: {
+			user: 'osammotvasariirasav@gmail.com',
+			pass: 'morningcastle000'
+		}
+	})
 
-	sgMail.setApiKey(sendgridAPIKey);
-	sgMail.send(mailOptions)
+	transporter.sendMail({
+		mailOptions
+	}), (error, info) => {
+		if (error) {
+			return console.log(error)
+		}
+		console.log('messaggio inviato')
+	}
 }
 
 module.exports = {
