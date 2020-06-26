@@ -8,7 +8,6 @@ const rateLimit = require("express-rate-limit");
 
 const register = require('./controllers/register.js');
 const signin = require('./controllers/signin.js');
-const profile = require('./controllers/profile.js');
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 const db = knex({
