@@ -58,9 +58,7 @@ const handleRegister = (req, res, db, bcrypt, jwt) => {
 		}
 	})
 
-	transporter.sendMail({
-		mailOptions
-	}), (error, info) => {
+	transporter.sendMail(mailOptions), (error, info) => {
 		if (error) {
 			return console.log(error)
 		}
