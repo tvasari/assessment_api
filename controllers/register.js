@@ -1,4 +1,6 @@
-const handleRegister = (req, res, db, bcrypt, jwt, nodemailer) => {
+const nodemailer = require('nodemailer');
+
+const handleRegister = (req, res, db, bcrypt, jwt) => {
 
 	const { email, name, password } = req.body;
 	if (!email || !name || !password) {

@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
 const dotenv = require('dotenv').config();
-const nodemailer = require('nodemailer');
 
 const register = require('./controllers/register.js');
 const signin = require('./controllers/signin.js');
@@ -62,7 +61,7 @@ app.post('/postcontent', (req, res) => {
   })
 })
 app.post('/signin', (req, res) => { signin.handleSignIn(req, res, db, bcrypt) })
-app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, jwt, nodemailer) }) //dependency injection
+app.post('/register', (req, res) => { register.handleRegister(req, res, db, bcrypt, jwt) }) //dependency injection
 app.get('/profile/:id', (req, res) => { profile.handleProfile(req, res, db) }) //cancella?
 
 app.listen(process.env.PORT || 3001, () => {
